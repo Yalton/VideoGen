@@ -11,7 +11,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/Yalton/VideoGen">
-    <img src="doc/img/pepe.png" alt="Logo" width="80" height="80">
+    <img src="doc/images/pepe.png" alt="Logo" width="80" height="80">
   </a>
   <h3 align="center">VideoGen - AI Video Generation tool</h3>
   <p align="center">
