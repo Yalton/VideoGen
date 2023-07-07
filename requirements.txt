@@ -1,0 +1,13 @@
+langchain
+pydantic
+configparser
+TTS
+ffmpeg-python
+requests
+pillow
+faiss
+audiocraft
+torch
+torchaudio
+tiktoken
+pydub

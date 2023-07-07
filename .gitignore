@@ -1,0 +1,7 @@
+data/*
+videos/*
+*.wav
+*.mp3
+*.png
+*.mp4
+config.ini

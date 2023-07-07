@@ -1,0 +1,198 @@
+# assert len(image_files) == len(tts_files), "Mismatch in number of images and audio files."
+
+# temp_files = []
+
+# for i in range(len(image_files)):
+#     image_file = image_files[i]
+#     audio_file = tts_files[i]
+    
+#     # Create a temporary video file for each image-audio pair
+#     temp_file = f'temp{i}.mp4'
+#     temp_files.append(temp_file)
+
+#     # Create a video stream from the image file
+#     video_stream = ffmpeg.input(image_file, loop=1, t=ffmpeg.probe(audio_file)['format']['duration'])
+
+#     # Create an audio stream from the audio file
+#     audio_stream = ffmpeg.input(audio_file)
+
+#     # Combine the video and audio streams and output to the temporary file
+#     ffmpeg.output(video_stream, audio_stream, temp_file, vcodec='libx264', acodec='aac').run()
+
+# # Concatenate all the temporary video files
+# inputs = []
+# for i in temp_files:
+#     inputs.append(ffmpeg.input(i).video)
+#     inputs.append(ffmpeg.input(i).audio)
+# ffmpeg.concat(*inputs, a=1, v=1).output(output_file).run()
+
+# # Delete all the temporary video files
+# for temp_file in temp_files:
+#     os.remove(temp_file)
+
+# return output_file
+
+
+# template = """VideoGen is a large language model with tools allowing it to generate videos about any topic 
+
+# When Generating videos ensure to keep the final product concise but informative 
+
+# When creating videos ensure that there is an image file generated for every 20 words spoken by the speech to text tool 
+
+# When creating videos ensure the information present in them is as up to date as possible for the given topic 
+
+# Video To generate: {human_input}"""
+
+
+
+    # if j < len(tts_files):
+    #     audio_file = tts_files[j]["filename"]
+    #     audio_duration = tts_files[j]["duration"]
+    #     silence_file = f'silence{j}.mp3'
+    #     (
+    #         ffmpeg
+    #         .input('anullsrc', channel_layout='stereo', sample_rate=44100, format='lavfi')
+    #         .output(silence_file, t=math.ceil(image_duration-audio_duration))
+    #         .run()
+    #     )
+    #     audio_stream = ffmpeg.concat(ffmpeg.input(audio_file), ffmpeg.input(silence_file), v=0, a=1)
+    # else:
+    #     audio_stream = ffmpeg.input('anullsrc', channel_layout='stereo', sample_rate=44100, format='lavfi', t=image_duration)
+
+
+            # temp_file = f'temp{i+j}.mp4'
+            # temp_files.append(temp_file)
+
+# # Prepare background music stream
+# if background_music and len(background_music) > 0:  # Check if the list is not empty
+#     bgm_filename = background_music[0]["filename"]
+#     if os.path.isfile(bgm_filename):  # Check if the file exists
+#         bgm_stream = ffmpeg.filter_(bgm_stream, 'volume', 0.1)  # Reduce volume to 10%
+#         audio_stream = ffmpeg.filter([audio_stream, bgm_stream], 'amix')  # Use ffmpeg.filter here
+# Prepare background music stream
+
+
+# temp_files = []
+# counter = 0  # New counter variable
+
+# print("generating video....")
+# i, j = 0, 0
+# while i < len(image_files) or j < len(tts_files):
+#     temp_file = f'temp{counter}.mp4'  # Use the counter variable here
+#     counter += 1  # Increment the counter
+#     temp_files.append(temp_file)
+
+
+
+#     # Prepare image stream
+#     if i < len(image_files):
+#         image_file = image_files[i]["filename"]
+#         image_duration = image_files[i]["duration"]
+#         video_stream = ffmpeg.input(image_file, loop=1, t=image_duration)
+#     else:
+#         video_stream = ffmpeg.input(temp_files[-1]).video  # Reuse the last image
+
+
+#     if j < len(tts_files):
+#         audio_file = tts_files[j]["filename"]
+#         audio_duration = tts_files[j]["duration"]
+#         silence_file = f'silence{j}.mp3'
+#         silence_duration = math.ceil(image_duration-audio_duration)
+#         if silence_duration > 0:
+#             command = f'ffmpeg -y -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 -t {silence_duration} {silence_file}'
+#             subprocess.run(command, shell=True, check=True)
+#             audio_stream = ffmpeg.concat(ffmpeg.input(audio_file), ffmpeg.input(silence_file), v=0, a=1)
+#         else: 
+#             silence_duration = 1
+#             command = f'ffmpeg -y -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 -t {silence_duration} {silence_file}'
+#             subprocess.run(command, shell=True, check=True)
+#             audio_stream = ffmpeg.concat(ffmpeg.input(audio_file), ffmpeg.input(silence_file), v=0, a=1)
+#         # command = f'ffmpeg -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 -t {silence_duration} {silence_file}'
+#         # subprocess.run(command, shell=True, check=True)
+#         # audio_stream = ffmpeg.concat(ffmpeg.input(audio_file), ffmpeg.input(silence_file), v=0, a=1)
+#     else:
+#         silence_file = 'silence.mp3'
+#         command = f'ffmpeg -y -f lavfi -i anullsrc=channel_layout=stereo:sample_rate=44100 -t {image_duration} {silence_file}'
+#         subprocess.run(command, shell=True, check=True)
+#         audio_stream = ffmpeg.input(silence_file)
+
+
+
+#     # Combine the video and audio streams and output to the temporary file
+#     ffmpeg.output(video_stream, audio_stream, temp_file, vcodec='libx264', acodec='aac').run()
+
+#     if i < len(image_files):
+#         i += 1
+#     if j < len(tts_files):
+#         j += 1
+
+# # Concatenate all the temporary video files
+# inputs = []
+# for i in temp_files:
+#     inputs.append(ffmpeg.input(i).video)
+#     inputs.append(ffmpeg.input(i).audio)
+# ffmpeg.concat(*inputs, a=1, v=1).output(output_file).run()
+
+# # Delete all the temporary video files
+# for temp_file in temp_files:
+#     os.remove(temp_file)
+
+# return output_file
+
+    # #url = "http://192.168.50.245:7860"
+    # #directory, extension
+    # directory = "."
+    # # Ensure that the extension starts with a dot
+    # if not extension.startswith("."):
+    #     extension = "." + extension
+
+    # # Use os.path.join to ensure the path is constructed correctly for the OS
+    # search_path = os.path.join(directory, "*" + extension)
+
+    # # Use glob.glob to get all files that match the search_path
+    # # Return the list of files directly
+    # return glob.glob(search_path)
+
+# agent = AutoGPT.from_llm_and_tools(
+#     ai_name="VideoGen",
+#     ai_role="VideoGenerator",
+#     tools=tools,
+#     llm=llm,
+#     memory=vectorstore.as_retriever(),
+# )
+
+# # Set verbose to be true
+# agent.chain.verbose = True
+
+        # temp_files = []
+        # counter = 0  # New counter variable
+
+        # print("generating video....")
+        # i, j = 0, 0
+        # while i < len(image_files) or j < len(tts_files):
+        #     temp_file = f'temp{counter}.mp4'  # Use the counter variable here
+        #     counter += 1  # Increment the counter
+        #     temp_files.append(temp_file)
+
+        #     # Prepare image stream
+        #     if i < len(image_files):
+        #         image_file = image_files[i]["filename"]
+        #         image_duration = image_files[i]["duration"]
+        #         video_stream = ffmpeg.input(image_file, loop=1, t=image_duration)
+        #     else:
+        #         video_stream = ffmpeg.input(temp_files[-1]).video  # Reuse the last image
+
+        #     # Prepare audio stream
+        #     if j < len(tts_files):
+        #         audio_file = tts_files[j]["filename"]
+        #         audio_duration = tts_files[j]["duration"]
+        #         audio_stream = ffmpeg.input(audio_file).audio
+        #         audio_stream = ffmpeg.filter_(audio_stream, 'adelay', '1s')
+        #     else:
+        #         audio_stream = ffmpeg.input('silence.mp3').audio
+
+
+# embeddings_model = OpenAIEmbeddings(openai_api_key=config.get("API_KEYS", "OpenAI"))
+# embedding_size = 1536
+# index = faiss.IndexFlatL2(embedding_size)
+# vectorstore = FAISS(embeddings_model.embed_query, index, InMemoryDocstore({}), {})
